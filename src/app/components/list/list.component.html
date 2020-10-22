@@ -1,15 +1,29 @@
-<p>
-    {{ cities | json }}
-</p>
+<h1>Cities</h1>
 
-<ul>
-    <li *ngFor="let city of cities">
-        {{ city.name }}
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let city of cities" (click)="onSelectCity(city)" (dblclick)="toggleEditOn()">
+        <span class="badge badge-dark p-2">
+            {{ city.name }}
+        </span>
+        <span *ngIf="!editOn" class="badge badge-danger ml-2" (click)="onDeleteCity(city)">X</span>
     </li>
 </ul>
 
-<div class="container-btn">
-    <button class="btn btn-success" (click)="saveNew()">Add new</button>
-    <button class="btn btn-success" (click)="onUpdateCity()">Update</button>
-    <button class="btn btn-danger" (click)="deleteCity()">Delete</button>
+<div class="input-group mt-2" *ngIf="editOn">
+    <input type="text" name="editOn" class="form-control" [(ngModel)]="selectedCity.name" onfocus="this.select()" autofocus>
+    <button class="btn btn-warning" (click)="onUpdateCity(selectedCity)">
+        Update city
+    </button>
 </div>
+
+<div class="input-group mt-2" *ngIf="!editOn">
+    <input type="text" *ngIf="showNew" name="newCity" class="form-control" [(ngModel)]="newCity.name" onfocus="this.select()" autofocus>
+    <button class="btn btn-success" (click)="toggleShowNew()">
+        {{ labelButtonNew }}
+    </button>
+</div>
+
+<!-- <div class="container-btn">
+    <button class="btn btn-success ml-5 mt-5" (click)="saveNew()">Add new</button>
+    <button class="btn btn-warning ml-5 mt-5" (click)="onUpdateCity()">Update</button>
+</div> -->

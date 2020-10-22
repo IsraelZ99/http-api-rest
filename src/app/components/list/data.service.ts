@@ -23,7 +23,7 @@ export class DataService {
     return this.http.put<CityI>(this.urlAPI, city);
   }
 
-  deleteCity(id: string): Observable<{}> {
+  deleteCity(id: number): Observable<{}> {
     this.urlAPI = `${this.urlAPI}/${id}`;
     return this.http.delete(this.urlAPI);
   }
